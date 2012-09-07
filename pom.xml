@@ -174,6 +174,7 @@
         <module>common/hbase-client</module>
         <module>common/zookeeper-client</module>
         <module>common/jetty-server</module>
+        <module>application/recommender</module>
         <module>application/hadoop-job</module>
         <module>application/recommendation-service</module>
         <module>assembly/recommendation-service</module>

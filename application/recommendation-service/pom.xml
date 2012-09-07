@@ -170,6 +170,12 @@
 
         <dependency>
             <groupId>com.telluriumsource</groupId>
+            <artifactId>recommender</artifactId>
+            <version>${pom.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.telluriumsource</groupId>
             <artifactId>zookeeper-client</artifactId>
             <version>${pom.version}</version>
         </dependency>
