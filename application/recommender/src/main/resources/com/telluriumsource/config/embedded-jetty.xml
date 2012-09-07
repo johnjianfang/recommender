@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Manually start server after setting parent context. (init-method="start") -->
+    <bean id="jettyServer"
+          class="org.mortbay.jetty.Server"
+          destroy-method="stop">
+        <property name="threadPool">
+            <bean id="ThreadPool"
+                  class="org.mortbay.thread.concurrent.ThreadPool">
+                <constructor-arg value="0"/>
+                <property name="corePoolSize" value="${jetty.server.thread.pool.core.pool.size}"/>
+                <property name="maximumPoolSize" value="${jetty.server.thread.pool.max.pool.size}"/>
+            </bean>
+        </property>
+        <property name="connectors">
+            <list>
+                <bean id="Connector"
+                      class="org.mortbay.jetty.nio.SelectChannelConnector"
+                      p:port="${jetty.server.port}"
+                      p:maxIdleTime="${jetty.server.max.idle.time}"
+                      p:acceptors="${jetty.server.acceptor.num}"
+                      p:confidentialPort="${jetty.server.ssl.port}"/>
+            </list>
+        </property>
+
+        <property name="handler">
+            <bean class="org.mortbay.jetty.handler.HandlerCollection">
+                <property name="handlers">
+                    <list>
+                        <bean class="org.mortbay.jetty.servlet.Context">
+                            <property name="contextPath" value="/"/>
+                            <property name="sessionHandler">
+                                <bean class="org.mortbay.jetty.servlet.SessionHandler"/>
+                            </property>
+                            <property name="resourceBase" value="."/>
+                            <property name="servletHandler">
+                                <bean class="org.mortbay.jetty.servlet.ServletHandler">
+                                    <property name="servlets"> <!-- servlet definition -->
+                                        <list>
+                                            <!-- default servlet -->
+                                            <bean class="org.mortbay.jetty.servlet.ServletHolder">
+                                                <property name="name" value="RecommendationServlet"/>
+                                                <property name="servlet">
+                                                    <bean class="com.telluriumsource.servlet.RecommendationServlet"/>
+                                                </property>
+                                            </bean>
+                                        </list>
+                                    </property>
+                                    <property name="servletMappings">
+                                        <list><!-- servlet mapping -->
+                                            <bean class="org.mortbay.jetty.servlet.ServletMapping">
+                                                <property name="pathSpecs">
+                                                    <list>
+                                                        <value>/recommend</value>
+                                                    </list>
+                                                </property>
+                                                <property name="servletName" value="RecommendationServlet"/>
+                                            </bean>
+                                        </list>
+                                    </property>
+                                </bean>
+                            </property>
+                        </bean>
+                        <bean class="org.mortbay.jetty.handler.RequestLogHandler">
+                            <property name="requestLog">
+                                <bean class="org.mortbay.jetty.NCSARequestLog">
+                                    <constructor-arg value="${jetty.server.log.dir}/jetty-yyyy_mm_dd.log"/>
+                                    <property name="extended" value="false"/>
+                                    <property name="logTimeZone" value="EST"/>
+                                </bean>
+                            </property>
+                        </bean>
+                    </list>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+</beans>
