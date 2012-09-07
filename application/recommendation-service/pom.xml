@@ -16,7 +16,7 @@
     <build>
         <resources>
             <resource>
-                <directory>src/main/resources</directory>
+                <directory>../recommendation-service/src/main/resources</directory>
                 <filtering>true</filtering>
                 <excludes>
                     <exclude>**/log4j.xml</exclude>

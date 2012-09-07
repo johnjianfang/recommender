@@ -175,7 +175,7 @@
         <module>common/zookeeper-client</module>
         <module>common/jetty-server</module>
         <module>application/hadoop-job</module>
-        <module>application/recommender</module>
+        <module>application/recommendation-service</module>
     </modules>
 
     <dependencies>
