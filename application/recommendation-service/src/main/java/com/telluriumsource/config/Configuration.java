@@ -1,5 +1,8 @@
 package com.telluriumsource.config;
 
+import com.telluriumsource.service.RecommendService;
+import com.telluriumsource.service.ServiceCheckService;
+
 import java.util.concurrent.atomic.AtomicLong;
 
 public class Configuration {
@@ -10,6 +13,9 @@ public class Configuration {
 
     private Environment environment;
 
+    private ServiceCheckService serviceCheckService;
+
+    private RecommendService recommendService;
 
     private Configuration(){
 
@@ -33,5 +39,21 @@ public class Configuration {
 
     public long total(){
         return sequence.get();
+    }
+
+    public ServiceCheckService getServiceCheckService() {
+        return serviceCheckService;
+    }
+
+    public void setServiceCheckService(ServiceCheckService serviceCheckService) {
+        this.serviceCheckService = serviceCheckService;
+    }
+
+    public RecommendService getRecommendService() {
+        return recommendService;
+    }
+
+    public void setRecommendService(RecommendService recommendService) {
+        this.recommendService = recommendService;
     }
 }

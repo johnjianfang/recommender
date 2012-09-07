@@ -44,9 +44,15 @@
                                         <list>
                                             <!-- default servlet -->
                                             <bean class="org.mortbay.jetty.servlet.ServletHolder">
-                                                <property name="name" value="RecommendationServlet"/>
+                                                <property name="name" value="RecommendServlet"/>
                                                 <property name="servlet">
-                                                    <bean class="com.telluriumsource.servlet.RecommendationServlet"/>
+                                                    <bean class="com.telluriumsource.servlet.RecommendServlet"/>
+                                                </property>
+                                            </bean>
+                                            <bean class="org.mortbay.jetty.servlet.ServletHolder">
+                                                <property name="name" value="ServiceCheckServlet"/>
+                                                <property name="servlet">
+                                                    <bean class="com.telluriumsource.servlet.ServiceCheckServlet"/>
                                                 </property>
                                             </bean>
                                         </list>
@@ -59,7 +65,15 @@
                                                         <value>/recommend</value>
                                                     </list>
                                                 </property>
-                                                <property name="servletName" value="RecommendationServlet"/>
+                                                <property name="servletName" value="RecommendServlet"/>
+                                            </bean>
+                                            <bean class="org.mortbay.jetty.servlet.ServletMapping">
+                                                <property name="pathSpecs">
+                                                    <list>
+                                                        <value>/service</value>
+                                                    </list>
+                                                </property>
+                                                <property name="servletName" value="ServiceCheckServlet"/>
                                             </bean>
                                         </list>
                                     </property>

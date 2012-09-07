@@ -23,7 +23,8 @@
         <property name="exposeError" value="${response.expose.error.message}"/>
         <property name="redirectMap">
             <map>
-                <entry key="GetRecommendation" value="/recommend"/>
+                <entry key="Recommend" value="/recommend"/>
+                <entry key="ServiceCheck" value="/service"/>
             </map>
         </property>
     </bean>
@@ -31,7 +32,12 @@
     <bean id="recommendationApp" class="com.telluriumsource.server.recommendationApp">
     </bean>
 
-    <bean id="profileService" class="com.barnesandnoble.service.AvroProfileService">
+    <bean id="recommendService" class="com.telluriumsource.service.RecommendServiceImpl">
+    </bean>
+
+    <bean id="serviceCheckService" class="com.telluriumsource.service.ServiceCheckServiceImpl">
 
     </bean>
+
 </beans>
+
