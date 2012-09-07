@@ -176,6 +176,7 @@
         <module>common/jetty-server</module>
         <module>application/hadoop-job</module>
         <module>application/recommendation-service</module>
+        <module>assembly/recommendation-service</module>
     </modules>
 
     <dependencies>

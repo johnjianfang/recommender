@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly>
+	<id>full</id>
+	<formats>
+		<format>tar.gz</format>
+	</formats>
+    <!--<includeModuleDirectory>true</includeModuleDirectory>-->
+	<includeBaseDirectory>true</includeBaseDirectory>
+	<baseDirectory>recommendation-service-${pom.version}</baseDirectory>
+	<fileSets>
+		<fileSet>
+		  <directory>server-template</directory>
+		  <outputDirectory></outputDirectory>
+		  <includes>
+		    <include>**/*</include>
+		  </includes>
+          <excludes>
+             <exclude>bin/**/*</exclude>
+          </excludes>
+          <directoryMode>777</directoryMode>
+          <fileMode>664</fileMode>
+		</fileSet>
+        <fileSet>
+		  <directory>server-template</directory>
+		  <outputDirectory></outputDirectory>
+		  <includes>
+		    <include>bin/**/*</include>
+		  </includes>
+          <directoryMode>777</directoryMode>
+          <fileMode>770</fileMode>
+		</fileSet>
+
+	</fileSets>
+	<dependencySets>
+		<dependencySet>
+            <outputFileNameMapping>${artifact.artifactId}.${artifact.extension}</outputFileNameMapping>
+			<outputDirectory>lib</outputDirectory>
+            <unpack>false</unpack>
+		</dependencySet>
+	</dependencySets>
+</assembly>

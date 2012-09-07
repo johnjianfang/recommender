@@ -1,0 +1,12 @@
+cd current/bin;
+./recommendation-service stop;
+cd ../../;
+rm -rf recommendation-service-1.0.0-SNAPSHOT;
+tar zxvf /tmp/recommendation-service-assembly-1.0.0-SNAPSHOT.tar.gz;
+cd current;
+mv conf conf.bak;
+ln -s ../conf .;
+cd bin;
+./recommendation-service start;
+cd ../logs;
+tail -f recommendation-service.log;
