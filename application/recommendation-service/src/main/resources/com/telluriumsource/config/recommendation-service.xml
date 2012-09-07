@@ -29,7 +29,7 @@
         </property>
     </bean>
 
-    <bean id="recommendationApp" class="com.telluriumsource.server.recommendationApp">
+    <bean id="recommendationApp" class="com.telluriumsource.server.RecommendationApp">
     </bean>
 
     <bean id="recommendService" class="com.telluriumsource.service.RecommendServiceImpl">
