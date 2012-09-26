@@ -1,6 +1,7 @@
 package com.telluriumsource.server;
 
 
+import ch.qos.logback.access.jetty.RequestLogImpl;
 import org.mortbay.jetty.Connector;
 import org.mortbay.jetty.Handler;
 import org.mortbay.jetty.NCSARequestLog;
@@ -16,9 +17,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.net.URL;
 
 public class JettyServerApp extends Thread implements LifeCycle {
     private static final Logger logger = LoggerFactory.getLogger(JettyServerApp.class);
+
+    private static final String JETTY_LOG_CONFIG_FILE = "jetty-log.xml";
 
     private boolean running = false;
 
@@ -92,9 +96,24 @@ public class JettyServerApp extends Thread implements LifeCycle {
         handlers.setHandlers(new Handler[]{webappcontext, new DefaultHandler(), requestLogHandler});
         server.setHandler(handlers);
 
+        RequestLogHandler handler = new org.mortbay.jetty.handler.RequestLogHandler();
+        RequestLogImpl requestLog = new RequestLogImpl();
+        URL location = this.getClass().getClassLoader().getResource(JETTY_LOG_CONFIG_FILE );
+        if (location != null) {
+            String fullPath = location.getPath();
+            logger.info("using logback configuration file: " + fullPath);
+            requestLog.setFileName(fullPath);
+        } else {
+            logger.warn("Cannot find logback configuration file " + JETTY_LOG_CONFIG_FILE );
+        }
+        handler.setRequestLog(requestLog);
+        server.addHandler(handler);
+
+/*
         NCSARequestLog requestLog = new NCSARequestLog("../logs/" + this.logFormat);
         requestLog.setExtended(false);
         requestLogHandler.setRequestLog(requestLog);
+        */
 
         try {
             server.start();

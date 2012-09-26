@@ -112,12 +112,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.telluriumsource</groupId>
-            <artifactId>recommender</artifactId>
-            <version>${pom.version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.apache.mahout</groupId>
             <artifactId>mahout-core</artifactId>
             <version>${mahout-version}</version>

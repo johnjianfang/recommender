@@ -1,6 +1,8 @@
 package com.telluriumsource.server;
 
+import ch.qos.logback.access.jetty.RequestLogImpl;
 import org.mortbay.jetty.Server;
+import org.mortbay.jetty.handler.RequestLogHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -8,10 +10,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.tanukisoftware.wrapper.WrapperListener;
 import org.tanukisoftware.wrapper.WrapperManager;
 
+import java.net.URL;
+
 public class RecommendationService implements WrapperListener {
     private static final Logger logger = LoggerFactory.getLogger(RecommendationService.class);
     private static final String DEFAULT_SPRING_CONFIG = "com/telluriumsource/config/recommendation-service.xml";
     private static final String SERVER_NAME="RecommendationService";
+    private static final String JETTY_LOG_CONFIG_FILE = "jetty-log.xml";
 
     private static final int START_ERROR_CODE = 1;
 
@@ -61,6 +66,19 @@ public class RecommendationService implements WrapperListener {
             app.start();
 
             server = (Server) context.getBean("jettyServer");
+            RequestLogHandler handler = new org.mortbay.jetty.handler.RequestLogHandler();
+            RequestLogImpl requestLog = new RequestLogImpl();
+            URL location = this.getClass().getClassLoader().getResource(JETTY_LOG_CONFIG_FILE );
+            if (location != null) {
+                String fullPath = location.getPath();
+                logger.info("using logback configuration file: " + fullPath);
+                requestLog.setFileName(fullPath);
+            } else {
+                logger.warn("Cannot find logback configuration file " + JETTY_LOG_CONFIG_FILE );
+            }
+            handler.setRequestLog(requestLog);
+            server.addHandler(handler);
+
             logger.info("Starting embedded Jetty server...");
             server.start();
 

@@ -20,6 +20,7 @@
                 <filtering>true</filtering>
                 <excludes>
                     <exclude>**/log4j.xml</exclude>
+                    <exclude>**/jetty-log.xml</exclude>
                     <exclude>**/recommendation-service.properties</exclude>
                 </excludes>
             </resource>
@@ -202,6 +203,18 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.16</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>0.9.30</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-access</artifactId>
+            <version>0.9.30</version>
         </dependency>
 
         <dependency>

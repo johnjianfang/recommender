@@ -80,7 +80,7 @@
                                 </bean>
                             </property>
                         </bean>
-                        <bean class="org.mortbay.jetty.handler.RequestLogHandler">
+<!--                        <bean class="org.mortbay.jetty.handler.RequestLogHandler">
                             <property name="requestLog">
                                 <bean class="org.mortbay.jetty.NCSARequestLog">
                                     <constructor-arg value="${jetty.server.log.dir}/jetty-yyyy_mm_dd.log"/>
@@ -88,7 +88,7 @@
                                     <property name="logTimeZone" value="EST"/>
                                 </bean>
                             </property>
-                        </bean>
+                        </bean>-->
                     </list>
                 </property>
             </bean>
